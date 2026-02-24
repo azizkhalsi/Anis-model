@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #1a1a2e;
+}
+
+.stator-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.stator-title {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.stator-hint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 12px;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 10;
+}
