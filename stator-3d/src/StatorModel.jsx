@@ -143,13 +143,22 @@ function createArm(materials) {
   return group;
 }
 
-// ── Single Arm Coil ──────────────────────────────────────────────────
-function createArmCoil(materials) {
+// ── Single Arm with Coil (combined group) ────────────────────────────
+function createArmWithCoil(materials) {
+  const group = new THREE.Group();
+
+  // Arm structure
+  const arm = createArm(materials);
+  group.add(arm);
+
+  // Coil on arm
   const coilGeo = createCoilGeometry(0.22, 0.72, 18, 0.032);
   const coil = new THREE.Mesh(coilGeo, materials.copper);
   coil.rotation.x = Math.PI / 2;
   coil.position.z = 0.7;
-  return coil;
+  group.add(coil);
+
+  return group;
 }
 
 // ── Vertical Post ─────────────────────────────────────────────────────
@@ -259,18 +268,9 @@ function assembleStator(materials) {
   const armAngles = [0, (2 * Math.PI) / 3, (4 * Math.PI) / 3];
 
   armAngles.forEach((angle) => {
-    // Arm structure
-    const arm = createArm(materials);
-    arm.rotation.y = angle;
-    stator.add(arm);
-
-    // Coil on arm
-    const coil = createArmCoil(materials);
-    coil.rotation.y = angle;
-    // Reposition coil along the rotated arm direction
-    const dir = new THREE.Vector3(Math.sin(angle), 0, Math.cos(angle));
-    coil.position.copy(dir.multiplyScalar(0));
-    stator.add(coil);
+    const armUnit = createArmWithCoil(materials);
+    armUnit.rotation.y = angle;
+    stator.add(armUnit);
   });
 
   // Vertical post
